@@ -31,10 +31,10 @@ const matcapTexture = textureLoader.load("/textures/matcaps/1.png");
 /**
  * Fonts
  */
-
+const donuts = []
 const fontLoader = new FontLoader();
 fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-    const textGeometry = new TextGeometry("Hello Three.js", {
+    const textGeometry = new TextGeometry("ThreeJS", {
         font: font,
         size: 0.5,
         height: 0.2,
@@ -54,25 +54,35 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
     textGeometry.center();
 
     const material = new THREE.MeshMatcapMaterial();
+    console.log(material)
     material.matcap = matcapTexture;
+
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.02,
+        sizeAttenuation: true
+    })
+
     const text = new THREE.Mesh(textGeometry, material);
     scene.add(text);
 
-    const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
-    for (let i = 0; i < 100; i++) {
-        const donut = new THREE.Mesh(donutGeometry, material);
-
-        donut.position.x = (Math.random() - 0.5) * 10;
-        donut.position.y = (Math.random() - 0.5) * 10;
-        donut.position.z = (Math.random() - 0.5) * 10;
+    const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 12, 45);
+    
+    for (let i = 0; i < 1000; i++) {
+        //const donut = new THREE.Mesh(donutGeometry, particlesMaterial);
+        const donut = new THREE.Points(donutGeometry, particlesMaterial);
+        donut.position.x = (Math.random() - 0.5) * 20;
+        donut.position.y = (Math.random() - 0.5) * 20;
+        donut.position.z = (Math.random() - 0.5) * 20;
 
         donut.rotation.x = Math.random() * Math.PI;
         donut.rotation.y = Math.random() * Math.PI;
+        donut.rot_vel = Math.max(0.5, Math.random())*0.5;
 
         const scale = Math.random();
         donut.scale.set(scale, scale, scale);
 
         scene.add(donut);
+        donuts.push(donut)
     }
 });
 
@@ -140,10 +150,20 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  * Animate
  */
 const clock = new THREE.Clock();
+let time = clock.getElapsedTime();
 
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
+    const currentTime = clock.getElapsedTime();
+    const deltaTime = currentTime - time;
+    console.log
+    time = currentTime;
+
+    donuts.forEach(donut => {
+        donut.rotation.x += deltaTime * donut.rot_vel;
+        donut.rotation.y += deltaTime * donut.rot_vel;
+    })
     // Update controls
     controls.update();
 
