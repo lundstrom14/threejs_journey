@@ -4,7 +4,9 @@ import * as dat from "lil-gui";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import gsap from "gsap";
-//import typefaceFont from "three/examples/fonts/helvetiker_regular.typeface.json";
+
+console.log(matcap1Url)
+console.log("textures/matcaps/1.png")
 
 /**
  * Base
@@ -26,14 +28,14 @@ scene.add(axisHelper);
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
-const matcapTexture = textureLoader.load("/textures/matcaps/1.png");
+const matcapTexture = textureLoader.load("textures/matcaps/1.png");
 
 /**
  * Fonts
  */
 const donuts = []
 const fontLoader = new FontLoader();
-fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
+fontLoader.load("fonts/helvetiker_regular.typeface.json", (font) => {
     const textGeometry = new TextGeometry("ThreeJS", {
         font: font,
         size: 0.5,
