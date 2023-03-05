@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+#
+pointclouds/*.laz
+pointclouds/sydney_fig_tree.las

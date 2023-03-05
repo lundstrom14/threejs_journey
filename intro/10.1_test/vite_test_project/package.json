@@ -1,5 +1,5 @@
 {
-  "name": "threejs-journey-exercise",
+  "name": "vite_test_project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,11 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^4.0.4"
+    "vite": "^4.1.0"
   },
   "dependencies": {
-    "las-reader": "^1.0.19",
-    "lil-gui": "^0.17.0",
-    "three": "^0.148.0"
+    "las-reader": "^1.0.19"
   }
 }
